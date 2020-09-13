@@ -4,6 +4,7 @@ import argparse
 import helper
 from epsilon_greedy import epsilonGreedy
 from ucb import ucb
+from ucb_kl import ucbKL
 
 # Function to parse arguments
 def parseArguements(algorithms):
@@ -32,9 +33,10 @@ if __name__ == '__main__':
 		regret = epsilonGreedy(args.randomSeed, args.horizon, means_true, args.epsilon, args.verbose)
 	elif args.algorithm == 'ucb':
 		regret = ucb(args.randomSeed, args.horizon, means_true, args.verbose)
+	elif args.algorithm == 'kl-ucb':
+		regret = ucbKL(args.randomSeed, args.horizon, means_true, args.verbose)
 	else:
-		regret = epsilonGreedy(args.randomSeed, args.horizon, means_true, args.epsilon, args.verbose)
-
+		regret = -1
 	print(regret)
 
 	

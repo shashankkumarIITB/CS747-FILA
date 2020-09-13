@@ -9,26 +9,25 @@ def sampleArm(means_ucb):
 	return arm_max
 
 # Extra term to be added to means_emp
-def extraTerm(horizon, numSamples):
-	return math.sqrt(2 * math.log(horizon) / numSamples)
+def extraTerm(t, numSamples):
+	return math.sqrt(2 * math.log(t) / numSamples)
 
 # Function for ucb sampling algorithm
 def ucb(seed, horizon, means_true, verbose=False):
 	random.seed(seed)
 	rewards = {i: 0 for i in means_true.keys()}
 	samples = {i: 0 for i in means_true.keys()}
-	means_emp = {i: 0.0 for i in means_true.keys()}
-	initTerm = extraTerm(horizon, 1)
-	means_ucb = {i: initTerm for i in means_true.keys()}
+	means_emp = {i: 0 for i in means_true.keys()}
+	means_ucb = {i: float('inf') for i in means_true.keys()}
 	
 	# Sample arms
-	for _ in range(horizon):
+	for t in range(horizon):
 		arm = sampleArm(means_ucb)
 		reward = getReward(means_true[arm])
 		rewards[arm] += reward
 		samples[arm] += 1
 		means_emp[arm] = rewards[arm] / samples[arm]
-		means_ucb[arm] = means_emp[arm] + extraTerm(horizon, samples[arm])
+		means_ucb[arm] = means_emp[arm] + extraTerm(t+1, samples[arm])
 
 	if verbose:
 		print(f'True means:\n{means_true}')
