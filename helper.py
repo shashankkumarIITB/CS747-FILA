@@ -1,3 +1,5 @@
+import operator, random
+
 # Raises an exception if a negative number is provided as argument
 def checkNonNegative(number):
 	try:
@@ -18,6 +20,7 @@ def checkRange(number):
 	except Exception as e:
 		raise e
 
+# Return true if 
 # Read and return true mean values from the filepath specfied
 def readFile(path):
 	with open(path, 'r') as file:
@@ -34,3 +37,17 @@ def readFile(path):
 			except Exception as e:
 				raise e
 		return means
+
+# Function to get reward based on the arm sampled
+def getReward(arm_probability):
+	toss = random.random()
+	if toss < arm_probability:
+		return 1
+	else:
+		return 0
+
+# Function to return regret given true means and rewards
+def getRegret(horizon, means_true, rewards):
+	p_star = max(means_true.items(), key=operator.itemgetter(1))[1]
+	regret = horizon * p_star - sum(rewards.values())
+	return regret

@@ -1,4 +1,7 @@
+# python3 bandit.py --instance ./instances/i-2.txt --algorithm epsilon-greedy --randomSeed 47 --epsilon 0.3 --verbose --horizon 100000
+
 import operator, random
+from helper import getReward, getRegret
 
 # Returns the modified rewards afer sampling an arm
 def sampleArm(means_emp, epsilon):
@@ -11,30 +14,25 @@ def sampleArm(means_emp, epsilon):
 		# Explore
 		return random.randint(1, len(means_emp))
 
-# Function to get reward based on the arm sampled
-def getReward(arm_prob):
-	toss = random.random()
-	if toss < arm_prob:
-		return 1
-	else:
-		return 0
-
-# Function for epsilon-greedy strategy
-def epsilonGreedy(seed, horizon, means_true, epsilon):
+# Function for epsilon-greedy sampling algorithm
+def epsilonGreedy(seed, horizon, means_true, epsilon, verbose=False):
 	random.seed(seed)
 	rewards = {i: 0 for i in means_true.keys()}
 	samples = {i: 0 for i in means_true.keys()}
 	means_emp = {i: 0.0 for i in means_true.keys()}
 
 	# Sample bandit-arms
-	for t in range(horizon):
+	for _ in range(horizon):
 		arm = sampleArm(means_emp, epsilon)
 		reward = getReward(means_true[arm])
 		rewards[arm] += reward
 		samples[arm] += 1
 		means_emp[arm] = rewards[arm] / samples[arm]
 
+	if verbose:
+		print(f'True means:\n{means_true}')
+		print(f'Empirical means:\n{means_emp}')
+		print(f'Number of pulls:\n{samples}')
+
 	# Return the regret
-	p_star = max(means_true.items(), key=operator.itemgetter(1))[1]
-	regret = horizon * p_star - sum(rewards.values())
-	return regret
+	return getRegret(horizon, means_true, rewards)

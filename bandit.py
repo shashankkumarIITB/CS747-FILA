@@ -1,9 +1,9 @@
 # https://www.cse.iitb.ac.in/~shivaram/teaching/cs747-a2020/pa-1/programming-assignment-1.html
-# python3 bandit.py --instance ./instances/i-1.txt --algorithm epsilon-greedy --epsilon 0.5 --randomSeed 47 --horizon 50
 
 import argparse
 import helper
 from epsilon_greedy import epsilonGreedy
+from ucb import ucb
 
 # Function to parse arguments
 def parseArguements(algorithms):
@@ -13,6 +13,7 @@ def parseArguements(algorithms):
 	parser.add_argument('--randomSeed', type=helper.checkNonNegative, help='a non-negative integer to be used as seed')
 	parser.add_argument('--epsilon', type=helper.checkRange, help='a number in the range [0,1]')
 	parser.add_argument('--horizon', type=helper.checkNonNegative, help='a non-negative integer')
+	parser.add_argument('--verbose', help='increase verbosity', action='store_true')
 	args = parser.parse_args()
 	if args.algorithm not in algorithms:
 		raise AssertionError('Incorrect algorithm specified. Try using --help.')
@@ -26,7 +27,14 @@ if __name__ == '__main__':
 	means_true = helper.readFile(args.instance)
 
 	# Call to the appropriate function
-	regret = epsilonGreedy(args.randomSeed, args.horizon, means_true, args.epsilon)
+	regret = None
+	if args.algorithm == 'epsilon-greedy':
+		regret = epsilonGreedy(args.randomSeed, args.horizon, means_true, args.epsilon, args.verbose)
+	elif args.algorithm == 'ucb':
+		regret = ucb(args.randomSeed, args.horizon, means_true, args.verbose)
+	else:
+		regret = epsilonGreedy(args.randomSeed, args.horizon, means_true, args.epsilon, args.verbose)
+
 	print(regret)
 
 	
