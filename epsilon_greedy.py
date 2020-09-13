@@ -1,4 +1,4 @@
-# python3 bandit.py --instance ./instances/i-2.txt --algorithm epsilon-greedy --randomSeed 47 --epsilon 0.3 --verbose --horizon 100000
+# python3 bandit.py --instance ./instances/i-2.txt --algorithm epsilon-greedy --randomSeed 42 --epsilon 0.3 --verbose --horizon 100000
 
 import operator, random
 from helper import getReward, getRegret

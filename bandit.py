@@ -5,6 +5,7 @@ import helper
 from epsilon_greedy import epsilonGreedy
 from ucb import ucb
 from ucb_kl import ucbKL
+from thompson_sampling import thompsonSampling
 
 # Function to parse arguments
 def parseArguements(algorithms):
@@ -17,7 +18,7 @@ def parseArguements(algorithms):
 	parser.add_argument('--verbose', help='increase verbosity', action='store_true')
 	args = parser.parse_args()
 	if args.algorithm not in algorithms:
-		raise AssertionError('Incorrect algorithm specified. Try using --help.')
+		raise AssertionError(f'Incorrect algorithm specified - "{args.algorithm}". Try using --help.')
 	return args
 
 if __name__ == '__main__':
@@ -35,6 +36,8 @@ if __name__ == '__main__':
 		regret = ucb(args.randomSeed, args.horizon, means_true, args.verbose)
 	elif args.algorithm == 'kl-ucb':
 		regret = ucbKL(args.randomSeed, args.horizon, means_true, args.verbose)
+	elif args.algorithm == 'thompson-sampling':
+		regret = thompsonSampling(args.randomSeed, args.horizon, means_true, args.verbose)
 	else:
 		regret = -1
 	print(regret)

@@ -1,4 +1,4 @@
-# python3 bandit.py --instance ./instances/i-2.txt --algorithm ucb --randomSeed 47 --verbose --horizon 10000
+# python3 bandit.py --instance ./instances/i-2.txt --algorithm ucb --randomSeed 42w --verbose --horizon 10000
 
 import math, operator, random
 from helper import getReward, getRegret
