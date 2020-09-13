@@ -42,7 +42,7 @@ if __name__ == '__main__':
 		regret = float('inf')
 	
 	# Print output to console and write to file
-	result = f'{args.instance}, {args.algorithm}, {args.seed}, {args.epsilon}, {args.horizon}, {args.regret}'
+	result = f'{args.instance}, {args.algorithm}, {args.randomSeed}, {args.epsilon}, {args.horizon}, {args.regret}'
 	print(result)
 	helper.writeFile('output.txt', result)
 	
