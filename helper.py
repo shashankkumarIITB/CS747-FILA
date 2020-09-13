@@ -38,6 +38,11 @@ def readFile(path):
 				raise e
 		return means
 
+# Write output to file
+def writeFile(path, string):
+	with open(path, 'a+') as file:
+		file.write(f'{string}\n')
+
 # Function to get reward based on the arm sampled
 def getReward(arm_probability):
 	toss = random.random()

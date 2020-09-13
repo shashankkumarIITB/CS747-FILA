@@ -11,10 +11,10 @@ from thompson_sampling import thompsonSampling
 def parseArguements(algorithms):
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--instance', type=str, help='path to the instance file')
-	parser.add_argument('--algorithm', type=str, help='algorithm choices - epsilon-greedy, ucb, kl-ucb, thompson-sampling, and thompson-sampling-with-hint')
-	parser.add_argument('--randomSeed', type=helper.checkNonNegative, help='a non-negative integer to be used as seed')
-	parser.add_argument('--epsilon', type=helper.checkRange, help='a number in the range [0,1]')
-	parser.add_argument('--horizon', type=helper.checkNonNegative, help='a non-negative integer')
+	parser.add_argument('--algorithm', default='epsilon-greedy', type=str, help='algorithm choices - epsilon-greedy, ucb, kl-ucb, thompson-sampling, and thompson-sampling-with-hint')
+	parser.add_argument('--randomSeed', default=42, type=helper.checkNonNegative, help='a non-negative integer to be used as seed')
+	parser.add_argument('--epsilon', default=0, type=helper.checkRange, help='a number in the range [0,1]')
+	parser.add_argument('--horizon', default=10000, type=helper.checkNonNegative, help='a non-negative integer')
 	parser.add_argument('--verbose', help='increase verbosity', action='store_true')
 	args = parser.parse_args()
 	if args.algorithm not in algorithms:
@@ -39,7 +39,10 @@ if __name__ == '__main__':
 	elif args.algorithm == 'thompson-sampling':
 		regret = thompsonSampling(args.randomSeed, args.horizon, means_true, args.verbose)
 	else:
-		regret = -1
-	print(regret)
-
+		regret = float('inf')
+	
+	# Print output to console and write to file
+	result = f'{args.instance}, {args.algorithm}, {args.seed}, {args.epsilon}, {args.horizon}, {args.regret}'
+	print(result)
+	helper.writeFile('output.txt', result)
 	
