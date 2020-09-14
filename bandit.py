@@ -38,9 +38,12 @@ if __name__ == '__main__':
 		regret = ucbKL(args.randomSeed, args.horizon, means_true, args.verbose)
 	elif args.algorithm == 'thompson-sampling':
 		regret = thompsonSampling(args.randomSeed, args.horizon, means_true, args.verbose)
+	else:
+		regret = float('inf')
 	
-	# Print output to console and write to file
-	result = f'{args.instance}, {args.algorithm}, {args.randomSeed}, {args.epsilon}, {args.horizon}, {regret}'
-	print(result)
-	helper.writeFile('output.txt', result)
+	if regret is not None:
+		# Print output to console and write to file
+		result = f'{args.instance}, {args.algorithm}, {args.randomSeed}, {args.epsilon}, {args.horizon}, {regret}'
+		print(result)
+		helper.writeFile('outputData.txt', result)
 	
