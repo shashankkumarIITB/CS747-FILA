@@ -3,7 +3,7 @@ import os
 if __name__ == '__main__':
 	algorithms = ['epsilon-greedy', 'ucb', 'kl-ucb', 'thompson-sampling']
 	epsilon = 0.02
-	horizons = [1600]
+	horizons = [100, 400, 1600, 6400, 25600, 102400]
 	dir_insances = './instances'
 	instances = [f'{dir_insances}/i-1.txt', f'{dir_insances}/i-2.txt', f'{dir_insances}/i-3.txt']
 
