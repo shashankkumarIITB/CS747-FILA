@@ -1,4 +1,4 @@
-# python3 bandit.py --instance ./instances/i-2.txt --algorithm thompson-sampling--randomSeed 42 --verbose --horizon 100000
+# python3 bandit.py --instance ./instances/i-2.txt --algorithm thompson-sampling-with-hint--randomSeed 42 --verbose --horizon 100000
 
 import operator, random
 import numpy as np
@@ -12,31 +12,38 @@ def sampleArm(rewards, failures):
 	arm_max = np.argmax(samples_beta)
 	return arm_max + 1
 
+# Returns an arm which is within epsilon of the maximum true mean
+def epsilonClose(means_true_max, means_emp):
+	epsilon = 0.05
+	for arm in means_emp.keys():
+		if abs(means_true_max - means_emp[arm]) < epsilon:
+			return arm
+	return -1
+
 # Function for epsilon-greedy sampling algorithm
-def thompsonSampling(seed, horizon, means_true, verbose=False):
+def thompsonSamplingWithHint(seed, horizon, means_true, verbose=False):
 	np.random.seed(seed)
 	random.seed(seed)
 	rewards = {i: 0 for i in means_true.keys()}
 	failures = {i: 0 for i in means_true.keys()}
+	samples = {i: 0 for i in means_true.keys()}
+	means_emp = {i: 0 for i in means_true.keys()}
+
+	# Compute the maximum value amongst the true means
+	means_true_max = max(means_true.values())
 
 	# Sample bandit-arms
 	for _ in range(horizon):
-		arm = sampleArm(rewards, failures)
+		arm = epsilonClose(means_true_max, means_emp)
+		if arm == -1:
+			arm = sampleArm(rewards, failures)
 		reward = getReward(means_true[arm])
 		rewards[arm] += reward
 		failures[arm] += 1 - reward
-	
-	if verbose:
-		# Compute empirical means
-		means_emp = {}
-		samples = {}
-		for arm in means_true.keys():
-			samples[arm] = rewards[arm] + failures[arm]
-			if samples[arm] == 0:
-				means_emp[arm] = 0
-			else:
-				means_emp[arm] = rewards[arm] / samples[arm]
+		samples[arm] += 1
+		means_emp[arm] = rewards[arm] / samples[arm]
 
+	if verbose:
 		print(f'True means:\n{means_true}')
 		print(f'Empirical means:\n{means_emp}')
 		print(f'Number of pulls:\n{samples}')

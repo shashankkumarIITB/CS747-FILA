@@ -6,6 +6,7 @@ from epsilon_greedy import epsilonGreedy
 from ucb import ucb
 from ucb_kl import ucbKL
 from thompson_sampling import thompsonSampling
+from thompson_sampling_with_hint import thompsonSamplingWithHint
 
 # Function to parse arguments
 def parseArguements(algorithms):
@@ -38,6 +39,8 @@ if __name__ == '__main__':
 		regret = ucbKL(args.randomSeed, args.horizon, means_true, args.verbose)
 	elif args.algorithm == 'thompson-sampling':
 		regret = thompsonSampling(args.randomSeed, args.horizon, means_true, args.verbose)
+	elif args.algorithm == 'thompson-sampling-with-hint':
+		regret = thompsonSamplingWithHint(args.randomSeed, args.horizon, means_true, args.verbose)
 	else:
 		regret = float('inf')
 	
@@ -46,4 +49,3 @@ if __name__ == '__main__':
 		result = f'{args.instance}, {args.algorithm}, {args.randomSeed}, {args.epsilon}, {args.horizon}, {regret}'
 		print(result)
 		helper.writeFile('outputData.txt', result)
-	

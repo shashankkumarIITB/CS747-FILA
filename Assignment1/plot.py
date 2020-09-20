@@ -1,7 +1,19 @@
 import math
 import matplotlib.pyplot as plt
 
-if __name__ == '__main__':
+# Create the data dictionary from the output file
+# Structure of data:
+# data = {
+# 	'instance': {
+# 		'algorithm': {
+# 			'horizon': {
+# 				'regret': <cummulative regret>,
+# 				'numSeeds': <number of seeds>
+# 			}
+# 		}
+# 	}
+# }
+def generateData(algorithms):
 	data = {}
 	with open('outputData.txt') as file:
 		while True:
@@ -10,6 +22,8 @@ if __name__ == '__main__':
 				break
 			else:
 				instance, algorithm, seed, epsilon, horizon, regret = line.split(', ')
+				if algorithm not in algorithms:
+					continue
 				if instance not in data.keys():
 					data[instance] = {}
 				data_instance = data[instance]
@@ -21,20 +35,13 @@ if __name__ == '__main__':
 				data_horizon = data_algorithm[horizon]
 				data_horizon['regret'] += float(regret)
 				data_horizon['numSeeds'] += 1
+	return data
 
-	# Structure of data:
-	# data = {
-	# 	'instance': {
-	# 		'algorithm': {
-	# 			'horizon': {
-	# 				'regret': <cummulative regret>,
-	# 				'numSeeds': <number of seeds>
-	# 			}
-	# 		}
-	# 	}
-	# }
-
-	# Output plots based on the data above
+# Function to generate plots based on the dictionary supplied
+def generatePlots(algorithms):
+	# Generate the data
+	data = generateData(algorithms)
+	# Plot based on the data generated
 	for instance in data.keys():
 		data_instance = data[instance]
 		X = []
@@ -56,3 +63,11 @@ if __name__ == '__main__':
 			line.set_label(f'{algorithms[i]}')
 		plt.legend()
 		plt.show()
+
+
+if __name__ == '__main__':
+	algorithms_T1 = ['epsilon-greedy', 'ucb', 'kl-ucb', 'thompson-sampling']
+	algorithms_T2 = ['thompson-sampling', 'thompson-sampling-with-hint']
+	generatePlots(algorithms_T1)
+	generatePlots(algorithms_T2)
+	

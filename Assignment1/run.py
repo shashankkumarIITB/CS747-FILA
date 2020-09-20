@@ -1,7 +1,7 @@
 import os
 
 if __name__ == '__main__':
-	algorithms = ['epsilon-greedy', 'ucb', 'kl-ucb', 'thompson-sampling']
+	algorithms = ['epsilon-greedy', 'ucb', 'kl-ucb', 'thompson-sampling', 'thompson-sampling-with-hint']
 	epsilon = 0.02
 	horizons = [100, 400, 1600, 6400, 25600, 102400]
 	dir_insances = './instances'
