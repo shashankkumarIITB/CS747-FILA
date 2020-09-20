@@ -13,9 +13,9 @@ import matplotlib.pyplot as plt
 # 		}
 # 	}
 # }
-def generateData(algorithms):
+def generateData(algorithms, filename):
 	data = {}
-	with open('outputData.txt') as file:
+	with open(f'{filename}.txt') as file:
 		while True:
 			line = file.readline()
 			if not line:
@@ -38,9 +38,9 @@ def generateData(algorithms):
 	return data
 
 # Function to generate plots based on the dictionary supplied
-def generatePlots(algorithms):
+def generatePlots(algorithms, filename):
 	# Generate the data
-	data = generateData(algorithms)
+	data = generateData(algorithms, filename)
 	# Plot based on the data generated
 	for instance in data.keys():
 		data_instance = data[instance]
@@ -68,6 +68,6 @@ def generatePlots(algorithms):
 if __name__ == '__main__':
 	algorithms_T1 = ['epsilon-greedy', 'ucb', 'kl-ucb', 'thompson-sampling']
 	algorithms_T2 = ['thompson-sampling', 'thompson-sampling-with-hint']
-	generatePlots(algorithms_T1)
-	generatePlots(algorithms_T2)
+	generatePlots(algorithms_T1, 'outputDataT1')
+	generatePlots(algorithms_T2, 'outputDataT2')
 	

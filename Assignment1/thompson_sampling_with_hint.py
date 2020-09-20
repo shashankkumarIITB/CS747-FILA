@@ -14,7 +14,7 @@ def sampleArm(rewards, failures):
 
 # Returns an arm which is within epsilon of the maximum true mean
 def epsilonClose(means_true_max, means_emp):
-	epsilon = 0.05
+	epsilon = 0.01
 	for arm in means_emp.keys():
 		if abs(means_true_max - means_emp[arm]) < epsilon:
 			return arm

@@ -16,6 +16,7 @@ def parseArguements(algorithms):
 	parser.add_argument('--randomSeed', default=42, type=helper.checkNonNegative, help='a non-negative integer to be used as seed')
 	parser.add_argument('--epsilon', default=0, type=helper.checkRange, help='a number in the range [0,1]')
 	parser.add_argument('--horizon', default=10000, type=helper.checkNonNegative, help='a non-negative integer')
+	parser.add_argument('--output', default='outputData', type=str, help='name of the output txt file to be created')
 	parser.add_argument('--verbose', help='increase verbosity', action='store_true')
 	args = parser.parse_args()
 	if args.algorithm not in algorithms:
@@ -48,4 +49,4 @@ if __name__ == '__main__':
 		# Print output to console and write to file
 		result = f'{args.instance}, {args.algorithm}, {args.randomSeed}, {args.epsilon}, {args.horizon}, {regret}'
 		print(result)
-		helper.writeFile('outputData.txt', result)
+		helper.writeFile(f'{args.output}.txt', result)
