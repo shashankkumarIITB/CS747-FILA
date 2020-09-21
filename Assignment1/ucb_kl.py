@@ -12,8 +12,17 @@ def kl(p, q):
 	else:
 		return p * math.log(p / q) + (1 - p) * math.log((1 - p) / (1 - q))
 
-# Function to find optimal value of q given horizon and empirical mean of an arm 
-def findQ(horizon, target, mean_emp, num_sample):
+# Function to get the target value for a given time t
+def getTarget(t):
+	# c is the const for kl-ucb algorithm
+	c = 3
+	if t == 1:
+		return float('inf')
+	else:
+		return math.log(t) + c * math.log(math.log(t))
+
+# Function to find optimal value of q for given target and empirical mean of an arm 
+def findQ(target, mean_emp, num_sample):
 	q = 1
 	epsilon = 10 ** -1
 	value = kl(mean_emp, q) * num_sample
@@ -35,18 +44,17 @@ def ucbKL(seed, horizon, means_true, verbose=False):
 	means_emp = {i: 0 for i in means_true.keys()}
 	means_ucbkl = {i: float('inf') for i in means_true.keys()}
 	
-	# c is the const for kl-ucb algorithm
-	c = 3
-	target = math.log(horizon) + c * math.log(math.log(horizon))
-	
 	# Sample arms
-	for _ in range(horizon):
+	for t in range(horizon):
 		arm = sampleArm(means_ucbkl)
 		reward = getReward(means_true[arm])
 		rewards[arm] += reward
 		samples[arm] += 1
+		# Modify the empirical mean
 		means_emp[arm] = rewards[arm] / samples[arm]
-		means_ucbkl[arm] = findQ(horizon, target, means_emp[arm], samples[arm])
+		# Find out the kl-ucb means
+		target = getTarget(t+1)
+		means_ucbkl = {arm: findQ(target, means_emp[arm], samples[arm]) for arm in means_true.keys()}
 
 	if verbose:
 		print(f'True means:\n{means_true}')

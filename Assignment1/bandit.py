@@ -1,5 +1,12 @@
 # https://www.cse.iitb.ac.in/~shivaram/teaching/cs747-a2020/pa-1/programming-assignment-1.html
 
+# Time taken by each algorithm:
+# 1. Epsilon-greedy ~ 4 minutes
+# 2. UCB ~ 5 minutes
+# 3. KL-UCB ~ 12 minutes
+# 4. Thompson Sampling ~ 12 minutes
+# 5. Thompson Sampling With Hint ~ 3 minutes
+
 import argparse
 import helper
 from epsilon_greedy import epsilonGreedy

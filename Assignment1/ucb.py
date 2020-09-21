@@ -1,4 +1,4 @@
-# python3 bandit.py --instance ./instances/i-2.txt --algorithm ucb --randomSeed 42w --verbose --horizon 10000
+# python3 bandit.py --instance ./instances/i-2.txt --algorithm ucb --randomSeed 42 --verbose --horizon 10000
 
 import math, operator, random
 from helper import getReward, getRegret
@@ -8,9 +8,12 @@ def sampleArm(means_ucb):
 	arm_max = max(means_ucb.items(), key=operator.itemgetter(1))[0]
 	return arm_max
 
-# Extra term to be added to means_emp
+# Extra term to be added to means_emp 
 def extraTerm(t, numSamples):
-	return math.sqrt(2 * math.log(t) / numSamples)
+	if numSamples == 0:
+		return float('inf')
+	else:
+		return math.sqrt(2 * math.log(t) / numSamples)
 
 # Function for ucb sampling algorithm
 def ucb(seed, horizon, means_true, verbose=False):
@@ -27,7 +30,7 @@ def ucb(seed, horizon, means_true, verbose=False):
 		rewards[arm] += reward
 		samples[arm] += 1
 		means_emp[arm] = rewards[arm] / samples[arm]
-		means_ucb[arm] = means_emp[arm] + extraTerm(t+1, samples[arm])
+		means_ucb = {arm: means_emp[arm] + extraTerm(t+1, samples[arm]) for arm in means_ucb.keys()}
 
 	if verbose:
 		print(f'True means:\n{means_true}')
