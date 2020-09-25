@@ -1,0 +1,6 @@
+I, Shashank Kumar, state that this assignment complies with the academic honesty policy of this course.
+
+References :
+	Python documentation available at https://docs.python.org/3/
+	Matplotlib documentation available at https://matplotlib.org/
+	Numpy documentation available at https://numpy.org/doc/
