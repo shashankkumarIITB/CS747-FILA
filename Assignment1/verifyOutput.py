@@ -57,7 +57,7 @@ for fname in fname_ls:
             orig_REG = line[-1].strip()
             #print(line_str) #['../instances/i-3.txt', ' thompson-sampling', ' 4', ' 0.02', ' 6400', ' 58'
            
-            cmd = "python","bandit.py","--instance",line[0].strip(),"--algorithm",line[1].strip(),"--randomSeed",line[2].strip(),"--epsilon",line[3].strip(),"--horizon",line[4].strip()
+            cmd = "python3","bandit.py","--instance",line[0].strip(),"--algorithm",line[1].strip(),"--randomSeed",line[2].strip(),"--epsilon",line[3].strip(),"--horizon",line[4].strip()
             print("running",cmd)
             reproduced_str = subprocess.check_output(cmd,universal_newlines=True)
             reproduced = reproduced_str.replace("\n","").split(",")

@@ -1,8 +1,0 @@
-I, Shashank Kumar, declare that my work complies with the academic honesty policy for this course.
-
-
-Resources used for reference:
-	Class notes
-	Python documentation available at https://docs.python.org/3/
-	Matplotlib documentation available at https://matplotlib.org/
-	Numpy documentation available at https://numpy.org/doc/

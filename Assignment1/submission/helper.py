@@ -43,14 +43,6 @@ def writeFile(path, string):
 	with open(path, 'a+') as file:
 		file.write(f'{string}\n')
 
-# Remove the last newline from the file
-def removeNewline(path):
-	with open(path, 'a+') as file:
-		lines = file.readlines()
-		# lines = lines[:-1]
-		print(path)
-		print(lines)
-
 # Function to get reward based on the arm sampled
 def getReward(arm_probability):
 	toss = random.random()
