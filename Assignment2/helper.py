@@ -1,0 +1,23 @@
+# File with the helper functions
+
+import os
+
+# Read and parse the mdp file
+def parseFile(path):
+	if not os.path.exists(path):
+		raise FileNotFoundError(f'File not found at the path - {path}')
+
+	with open(path) as file:
+		numStates = file.readline().split('\n')[0].split(' ')[1]
+		numActions = file.readline().split('\n')[0].split(' ')[1]
+		startState = file.readline().split('\n')[0].split(' ')[1]
+		endStates = [int(e) for e in file.readline().split('\n')[0].split(' ')[1:]]
+		transitions = []
+		line = file.readline().split('\n')[0].split(' ')
+		while (line[0] == 'transition'):
+			transition = [float(e) for e in line[1:]]
+			transitions.append(transition)
+			line = file.readline().split('\n')[0].split(' ')
+		mdpType = line[1]
+		discount = file.readline().split('\n')[0].split(' ')[1]
+	return int(numStates), int(numActions), int(startState), endStates, transitions, mdpType, float(discount)

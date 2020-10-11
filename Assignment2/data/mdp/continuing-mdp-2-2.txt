@@ -9,4 +9,4 @@ transition 0 1 1 0.7833213196413649 0.3893410889047654
 transition 1 0 1 0.23673799335066326 1.0
 transition 1 1 0 -0.8024733106817046 1.0
 mdptype continuing
-discount  0.96
+discount 0.96

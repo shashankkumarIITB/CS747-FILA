@@ -47,7 +47,7 @@ class MDP():
                     print("transition",s,a,next_state_in_path,R[-1],T[-1]/sumT)
 
         print(mdptype)
-        print("discount ",gamma)
+        print("discount",gamma)
 
 
     def generateContinuingMDP(self,S,A,gamma,mdptype):
