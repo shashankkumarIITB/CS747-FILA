@@ -14,11 +14,11 @@ def decoder(grid, policy):
 	}
 	path = ''
 	
-	row_start, col_start = np.where(grid == '3')
+	row_start, col_start = np.where(grid == '2')
 	row, col = row_start[0], col_start[0] 
 	
-	# Record the path to be taken
-	while grid[row][col] != '2':
+	# Record the path to be taken unless final state is reached
+	while grid[row][col] != '3':
 		action = policy[row][col]
 		direction = directions[action]
 		path += f'{direction} '

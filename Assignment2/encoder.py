@@ -8,9 +8,9 @@ import helper
 def getState(rows, i, j):
 	return (i - 1) * rows + (j - 1)
 
-# Function to return reward based on the state encountered
+# Function to return reward based on the state reached
 def getReward(state):
-	if state == '2':
+	if state == '3':
 		return 100
 	return -1
 
@@ -45,10 +45,10 @@ def encode(grid):
 			if grid[i][j] != '1':
 				current_state = getState(rows, i, j)
 				# Check if the state is a start or end state
-				if grid[i][j] == '3':
+				if grid[i][j] == '2':
 					startState = current_state
-				elif grid[i][j] == '2':
-					endStates.append(current_state)
+				elif grid[i][j] == '3':
+					endStates.append(str(current_state))
 					# No transitions from the end state
 					continue
 				

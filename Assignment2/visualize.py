@@ -22,7 +22,6 @@ if sys.argv[1] != sys.argv[-1]:
 				x,y = i,j
 				grid[i][j] = 3
 				break
-
 	path = []
 	with open(sys.argv[2]) as f:
 		for line in f:

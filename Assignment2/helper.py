@@ -63,12 +63,10 @@ def printMdp(numStates, numActions, startState, endStates, transitions, mdptype,
 	print(f'start {startState}')
 
 	if len(endStates) == 0:
-		print(f'endStates -1')
+		print(f'end -1')
 	else:	
-		endString = '' 
-		for e in endStates:
-			endString += f'{e}'
-		print(f'end {endString[:-1]}')
+		endString = ' '.join(endStates)
+		print(f'end {endString}')
 
 	for transition in transitions:
 		s1, ac, s2, r, p = transition

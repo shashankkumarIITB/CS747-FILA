@@ -46,8 +46,8 @@ class MDP():
                     
                     print("transition",s,a,next_state_in_path,R[-1],T[-1]/sumT)
 
-        print(mdptype)
-        print("discount",gamma)
+        print("mdptype",mdptype)
+        print("discount ",gamma)
 
 
     def generateContinuingMDP(self,S,A,gamma,mdptype):
@@ -86,7 +86,7 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
     if not (args.S>1 and args.S<=100):
-        print("number of states shoud be from 2 to 150")
+        print("number of states shoud be from 2 to 100")
         sys.exit(0)
     
     if not (args.A>1 and args.A<=100):
