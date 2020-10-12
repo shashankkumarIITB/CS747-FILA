@@ -33,3 +33,10 @@ def parseTransitions(numStates, numActions, transitions):
 		reward[s1][ac][s2] = r
 		probability[s1][ac][s2] = p
 	return reward, probability
+
+# Function to print output to terminal
+def printOutput(V, policy):
+	V = V.reshape((-1))
+	policy = policy.reshape((-1))
+	for i in range(V.shape[0]):
+		print(f'{V[i]:.6f} {policy[i] + 1}')

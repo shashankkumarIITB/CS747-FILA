@@ -4,12 +4,13 @@ import argparse
 import helper
 from vi import vi
 from hpi import hpi
+from lp import lp
 
 if __name__ == '__main__':
 	# Parse the arguments
 	parser = argparse.ArgumentParser()
 	parser.add_argument("--mdp", help="Path to the mdp file.")
-	parser.add_argument("--algorithm", help="Algorithm to calculate optimal value and policy.")
+	parser.add_argument("--algorithm", help="Algorithm - vi, hpi or lp - to calculate optimal value and policy.")
 	args = parser.parse_args()
 
 	# Read the mdp file
@@ -27,7 +28,7 @@ if __name__ == '__main__':
 		V, policy = hpi(numStates, numActions, startState, endStates, transitions, mdpType, discount)
 	elif args.algorithm == 'lp':
 		V, policy = lp(numStates, numActions, startState, endStates, transitions, mdpType, discount)
+	else:
+		raise ValueError(f'Illegal arguments specified for algorithm - {args.algorithm}')
 
-	print(V)
-	print(policy)
-
+	helper.printOutput(V, policy)
