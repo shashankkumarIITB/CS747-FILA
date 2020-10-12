@@ -39,4 +39,4 @@ def printOutput(V, policy):
 	V = V.reshape((-1))
 	policy = policy.reshape((-1))
 	for i in range(V.shape[0]):
-		print(f'{V[i]:.6f} {policy[i] + 1}')
+		print(f'{V[i]:.6f} {policy[i]}')
