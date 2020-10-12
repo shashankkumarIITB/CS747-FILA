@@ -8,8 +8,8 @@ def checkFileExists(path):
 	if not os.path.exists(path):
 		raise FileNotFoundError(f'File not found at the path - {path}')
 
-# Read and parse the mdp file
-def parseMdpFile(path):
+# Read input from the mdp file
+def readMdpFile(path):
 	checkFileExists(path)
 	with open(path) as file:
 		numStates = file.readline().split('\n')[0].split(' ')[1]
@@ -38,14 +38,14 @@ def parseTransitions(numStates, numActions, transitions):
 	return reward, probability
 
 # Function to print output to terminal
-def printOutput(V, policy):
+def printValuePolicy(V, policy):
 	V = V.reshape((-1))
 	policy = policy.reshape((-1))
 	for i in range(V.shape[0]):
 		print(f'{V[i]:.6f} {policy[i]}')
 
-# Read and parse the maze file
-def parseGridFile(path):
+# Read the grid from the maze file
+def readGridFile(path):
 	checkFileExists(path)
 	grid = []
 	with open(path) as file:
@@ -76,3 +76,16 @@ def printMdp(numStates, numActions, startState, endStates, transitions, mdptype,
 
 	print(f'mdptype {mdptype}')
 	print(f'discount {discount}')
+
+
+# Function to read from the value-policy file
+def readValuePolicyFile(path):
+	checkFileExists(path)
+	with open(path) as file:
+		actions = []
+		line = file.readline()
+		while line:
+			value, action = line.split('\n')[0].split(' ')
+			actions.append(action)
+			line = file.readline()
+	return actions

@@ -79,5 +79,5 @@ if __name__ == '__main__':
 	parser.add_argument("--grid", help="Path to the grid file.")
 	args = parser.parse_args()
 
-	grid = helper.parseGridFile(args.grid)
+	grid = helper.readGridFile(args.grid)
 	encode(grid)

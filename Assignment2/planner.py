@@ -14,10 +14,10 @@ if __name__ == '__main__':
 	args = parser.parse_args()
 
 	# Read the mdp file
-	numStates, numActions, startState, endStates, transitions, mdpType, discount = helper.parseMdpFile(args.mdp)
+	numStates, numActions, startState, endStates, transitions, mdpType, discount = helper.readMdpFile(args.mdp)
 
-	print(f'Number of states: {numStates}')
-	print(f'Number of actions: {numActions}')
+	# print(f'Number of states: {numStates}')
+	# print(f'Number of actions: {numActions}')
 
 	V, policy = None, None
 
@@ -31,4 +31,4 @@ if __name__ == '__main__':
 	else:
 		raise ValueError(f'Illegal arguments specified for algorithm - {args.algorithm}')
 
-	helper.printOutput(V, policy)
+	helper.printValuePolicy(V, policy)
