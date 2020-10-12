@@ -1,6 +1,7 @@
 # File with the helper functions
 
 import os
+import numpy as np
 
 # Read and parse the mdp file
 def parseFile(path):
@@ -21,3 +22,14 @@ def parseFile(path):
 		mdpType = line[1]
 		discount = file.readline().split('\n')[0].split(' ')[1]
 	return int(numStates), int(numActions), int(startState), endStates, transitions, mdpType, float(discount)
+
+# Convert the transitions to numpy arrays
+def parseTransitions(numStates, numActions, transitions):
+	reward = np.zeros((numStates, numActions, numStates))
+	probability = np.zeros((numStates, numActions, numStates))
+	for transition in transitions:
+		s1, ac, s2, r, p = transition
+		s1, ac, s2 = int(s1), int(ac), int(s2)
+		reward[s1][ac][s2] = r
+		probability[s1][ac][s2] = p
+	return reward, probability
