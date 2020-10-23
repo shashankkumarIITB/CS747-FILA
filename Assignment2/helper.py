@@ -23,7 +23,7 @@ def readMdpFile(path):
 			transitions.append(transition)
 			line = file.readline().split('\n')[0].split(' ')
 		mdptype = line[1]
-		discount = file.readline().split('\n')[0].split('  ')[1]
+		discount = file.readline().split('\n')[0].split(' ')[1]
 	return int(numStates), int(numActions), int(startState), endStates, transitions, mdptype, float(discount)
 
 # Convert the transitions to numpy arrays

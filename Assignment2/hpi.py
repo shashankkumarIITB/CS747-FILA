@@ -9,9 +9,7 @@ def policyMatrix(reward, probability, policy):
 	for i in range(policy.shape[0]):
 		policyReward.append(reward[i][policy[i]])
 		policyProbability.append(probability[i][policy[i]])
-	policyReward = np.array(policyReward)
-	policyProbability = np.array(policyProbability)
-	return policyReward, policyProbability
+	return np.array(policyReward), np.array(policyProbability)
 
 # Function that implements Howard's policy iteration
 def hpi(numStates, numActions, startState, endStates, transitions, mdpType, discount):

@@ -5,7 +5,7 @@ import numpy as np
 random.seed(0)
 
 input_file_ls = ["data/maze/grid10.txt","data/maze/grid20.txt","data/maze/grid30.txt","data/maze/grid40.txt","data/maze/grid50.txt","data/maze/grid60.txt","data/maze/grid70.txt","data/maze/grid80.txt","data/maze/grid90.txt","data/maze/grid100.txt"]
-# input_file_ls = ["data/maze/grid10.txt"]
+# input_file_ls = ["data/maze/grid100.txt"]
 
 class MazeVerifyOutput:
     def __init__(self,algo):
