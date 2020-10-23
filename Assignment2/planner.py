@@ -9,8 +9,8 @@ from lp import lp
 if __name__ == '__main__':
 	# Parse the arguments
 	parser = argparse.ArgumentParser()
-	parser.add_argument("--mdp", help="Path to the mdp file.")
-	parser.add_argument("--algorithm", help="Algorithm - vi, hpi or lp - to calculate optimal value and policy.")
+	parser.add_argument("--mdp", help="Path to the mdp file.", required=True)
+	parser.add_argument("--algorithm", help="Algorithm - vi, hpi or lp - to calculate optimal value and policy.", required=True)
 	args = parser.parse_args()
 
 	# Read the mdp file

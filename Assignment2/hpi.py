@@ -25,7 +25,7 @@ def hpi(numStates, numActions, startState, endStates, transitions, mdpType, disc
 
 		# Iterate till the infinite norm is less than epsilon
 		V, V_prev = np.zeros((1, numStates)), np.ones((1, numStates))
-		epsilon = 10 ** -6
+		epsilon = 10 ** -10
 		while np.linalg.norm(V - V_prev, ord=float('inf'), axis=1) > epsilon:
 			V_prev = V
 			V = np.sum(policyProbability * (policyReward + discount * V), axis=1).reshape((1, numStates))

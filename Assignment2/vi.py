@@ -10,7 +10,7 @@ def vi(numStates, numActions, startState, endStates, transitions, mdpType, disco
 	V_prev = np.ones(V.shape)
 
 	# Iterate till the infinite norm is less than epsilon
-	epsilon = 10 ** -6
+	epsilon = 10 ** -10
 	while np.linalg.norm(V - V_prev, ord=float('inf'), axis=2) > epsilon:
 		V_prev = V
 		Q = np.sum(probability * (reward + discount * V), axis=2)
