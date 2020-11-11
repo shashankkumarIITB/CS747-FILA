@@ -1,0 +1,8 @@
+body {background-color: #FFFFFF; font-family: "Times"; font-size: 100%; font-weight: 300 padding-top:25px; padding-bottom:25px; padding-right:150px; padding-left:150px; }
+code-heavy{font-size: 100%; font-weight: 600; font-family: "Courier New"}
+code-normal{font-size: 100%; font-weight: 300; font-family: "Courier New"}
+highlight{font-size: 100%; font-weight: 600; color:#151B8D}
+.todo{font-size: 100%; color:#FF0000}
+ul.disc {list-style-type: disc}
+ul.plain {list-style-type: none}
+li.plain{padding-left: 0; margin-left: 0; padding-bottom: 20px} 
