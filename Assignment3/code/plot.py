@@ -59,4 +59,3 @@ if __name__ == '__main__':
 
 	data_Y = [data_Y1, data_Y2, data_Y3]
 	helper.plotComparision(data_X, data_Y)
-
