@@ -7,16 +7,14 @@ from gridworld import Gridworld
 class Sarsa(Gridworld):
 
 	# Initialize the agent and the world
-	def __init__(self, epsilon=0.1, alpha=0.5, gamma=1, seed=0, num_actions=4, rows=7, cols=10, start=(3, 0), end=(3, 7)):
+	def __init__(self, epsilon=0.1, alpha=0.5, gamma=1, seed=0, stochastic=False, num_actions=4, rows=7, cols=10, start=(3, 0), end=(3, 7)):
 		# Initialize the gridworld
-		super().__init__(rows, cols, start, end)
+		super().__init__(rows, cols, start, end, seed, stochastic)
 		self.epsilon = epsilon
 		self.alpha = alpha
 		self.gamma = gamma
 		self.num_actions = num_actions
 		self.Q = np.zeros((self.rows * self.cols, self.num_actions))
-		# Random number generator
-		self.rg = np.random.default_rng(seed=seed)
 
 	# Choose the action based on epsilon-greedy policy and current state
 	def nextAction(self, state):

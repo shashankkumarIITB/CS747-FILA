@@ -1,13 +1,18 @@
+import numpy as np
+
 # Class to implement gridworld problem
 class Gridworld:
 
 	# Initialize the world
-	def __init__(self, rows=7, cols=10, start=(3, 0), end=(3, 7)):
+	def __init__(self, rows=7, cols=10, start=(3, 0), end=(3, 7), seed=0, stochastic=False):
 		self.rows = 7
 		self.cols = 10
+		# Start and end state
 		self.start = start[0] * self.cols + start[1]
 		self.end = end[0] * self.cols + end[1]
+		# Wind in the grid
 		self.wind = self.generateWind()
+		self.stochastic = stochastic
 		self.actions = {
 			0: 'N', 
 			1: 'E', 
@@ -18,6 +23,8 @@ class Gridworld:
 			6: 'SW',
 			7: 'NW',
 		}
+		# Random number generator
+		self.rg = np.random.default_rng(seed=seed)
 
 	# Function to generate wind in every column
 	def generateWind(self):
@@ -25,7 +32,10 @@ class Gridworld:
 
 	# Function to return wind magnitude at a given column
 	def getWind(self, col):
-		return self.wind[col]
+		if self.stochastic:
+			return self.wind[col] + self.rg.integers(-1, 2) 
+		else:
+			return self.wind[col]
 
 	# Return the next state based on the current state and action taken
 	def nextState(self, state, action):
