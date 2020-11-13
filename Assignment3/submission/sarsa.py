@@ -23,6 +23,7 @@ class Sarsa(Gridworld):
 		else:
 			return np.argmax(self.Q[state, :])
 
+	# Run the agent simulation
 	def run(self, timesteps=10000, verbose=False):
 		episode, t = 0, 0
 		# Start with the starting state and corresponding action
